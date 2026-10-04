@@ -44,54 +44,41 @@ https://<user>.github.io/<repo>/#chalet/2f-master-bedroom/denari
 
 ---
 
-## 3. Adding lineups
+## 3. Adding lineups (plans)
+
+A site can have **multiple plans** per operator. Each plan is a group of screenshots, shown under its own **PLAN 01 / PLAN 02** divider.
 
 ### Step 1 — Save screenshots
-Use this folder structure:
+Name them `<operator>-<plan>.<shot>.png` inside the site folder:
 
 ```
-images/<map-id>/<site-id>/<operator-id>-1.jpg
-images/<map-id>/<site-id>/<operator-id>-2.jpg
-...
-```
-
-Example: two Denari lineups on Chalet's Master Bedroom site:
-
-```
-images/chalet/2f-master-bedroom/denari-1.jpg
-images/chalet/2f-master-bedroom/denari-2.jpg
+images/chalet/2f-master-bedroom/denari-1.1.png   ← plan 1, shot 1
+images/chalet/2f-master-bedroom/denari-1.2.png   ← plan 1, shot 2
+images/chalet/2f-master-bedroom/denari-2.1.png   ← plan 2, shot 1
 ```
 
 ### Step 2 — Register them in `data.js`
-Open `data.js` and edit `window.LINEUPS`. The format is `map → site → operator: number of screenshots`.
+Each number in the list = how many screenshots that plan has:
 
 ```js
 window.LINEUPS = {
   chalet: {
-    '2f-master-bedroom': { denari: 2, kapkan: 1 },
-    '1f-bar':            { denari: 1 },
-  },
-  clubhouse: {
-    'b-church': { thatcher: 3 },
+    '2f-master-bedroom': { denari: [2, 1] },   // plan 1: 2 shots, plan 2: 1 shot
+    '1f-bar':            { denari: [3] },      // one plan, 3 shots
   },
 };
 ```
 
 ### Option — custom filenames / formats
-List exact filenames instead of a number to use names you like or other formats (`.png`, `.webp`):
-
 ```js
-'2f-master-bedroom': { denari: ['main-stairs.png', 'office-hall.png'] }
+denari: [['stairs.png', 'office.png'], ['hall.jpg']]
 ```
-→ loads `images/chalet/2f-master-bedroom/main-stairs.png` and so on.
-
-Order in the list = order on the page (01, 02, …).
 
 ### If an image doesn't show
-The tile shows **"missing file"** plus the exact path it looked for. Check:
-- The folder and filename match exactly. **GitHub Pages is case-sensitive**, so `Denari-1.JPG` ≠ `denari-1.jpg`.
-- The extension matches (`.jpg` is the default when you use a number).
-- The count in `data.js` isn't higher than the number of files.
+The tile shows **"missing file"** plus the path it expected. Check:
+- Folder and filename match exactly. **GitHub Pages is case-sensitive.**
+- Default extension is `.png`.
+- The counts in `data.js` match the files.
 
 ---
 
@@ -159,7 +146,7 @@ The layout is responsive. Below 760px wide, the map sidebar becomes a horizontal
 To update: commit new images and the edited `data.js`. Pages redeploys automatically.
 
 **Tips**
-- Keep screenshots around **1920×1080 JPG at ~80% quality** (≈200–400 KB each) so pages load fast. Large PNGs will be slow.
+- Large PNGs (2–5 MB) load slowly. Consider resizing to 1920×1080 before uploading.
 - GitHub repos should stay under ~1 GB. That's roughly a few thousand screenshots at the size above.
 
 ---
@@ -179,8 +166,8 @@ To update: commit new images and the edited `data.js`. Pages redeploys automatic
 
 ## 9. Quick checklist for a new lineup
 
-- [ ] Screenshot saved as `images/<map>/<site>/<operator>-N.jpg`
-- [ ] Count (or filename) added in `data.js` → `LINEUPS`
+- [ ] Screenshots saved as `images/<map>/<site>/<operator>-<plan>.<shot>.png`
+- [ ] Plan counts added in `data.js` → `LINEUPS`
 - [ ] Opened locally to confirm it shows
 - [ ] Committed and pushed to GitHub
 

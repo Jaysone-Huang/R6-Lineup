@@ -12,14 +12,18 @@
     sites: sites.map(s => { const [floor, n] = s.split('|'); return { id: slug(floor + ' ' + n.split('/')[0]), floor, name: n.trim() }; }),
   }));
 
-  const images = (map, site, op) => {
-    const v = LINEUPS[map]?.[site]?.[op];
+  // Returns plans: [[src, src], [src]]
+  const plans = (map, site, op) => {
+    let v = LINEUPS[map]?.[site]?.[op];
     if (!v) return [];
+    if (!Array.isArray(v)) v = [v];
+    if (v.length && typeof v[0] === 'string') v = [v];
     const dir = `images/${map}/${site}/`;
-    return Array.isArray(v) ? v.map(f => dir + f) : Array.from({ length: v }, (_, i) => `${dir}${op}-${i + 1}.jpg`);
+    return v.map((p, pi) => Array.isArray(p) ? p.map(f => dir + f) : Array.from({ length: p }, (_, i) => `${dir}${op}-${pi + 1}.${i + 1}.png`)).filter(p => p.length);
   };
+  const images = (map, site, op) => plans(map, site, op);
   const countMap = map => Object.keys(LINEUPS[map] || {}).reduce((a, s) => a + countSite(map, s), 0);
-  const countSite = (map, site) => Object.keys(LINEUPS[map]?.[site] || {}).reduce((a, op) => a + images(map, site, op).length, 0);
+  const countSite = (map, site) => Object.keys(LINEUPS[map]?.[site] || {}).reduce((a, op) => a + plans(map, site, op).length, 0);
   const total = MAPS.reduce((a, m) => a + countMap(m.id), 0);
 
   const state = { map: 'chalet', site: null, side: 'def', op: 'denari', onlyWith: true, q: '' };
@@ -52,7 +56,7 @@
   function render() {
     const map = getMap(), site = getSite(), op = getOp();
     state.site = site.id;
-    $('stats').textContent = `${total} LINEUPS · ${MAPS.length} MAPS`;
+    $('stats').textContent = `${total} PLANS · ${MAPS.length} MAPS`;
     $('mapName').textContent = map.name;
     $('crumb').textContent = `${site.floor} · ${site.name.toUpperCase()} · ${op.name.toUpperCase()}`;
     document.title = `${map.name} · ${site.name} · ${op.name} — Lineup Index`;
@@ -65,7 +69,7 @@
 
     $('sites').innerHTML = map.sites.map(s => {
       const c = countSite(map.id, s.id);
-      return `<button class="site-btn${s.id === site.id ? ' on' : ''}" data-site="${s.id}"><span class="meta"><span>${esc(s.floor)}</span><span>${c ? `${c} LINEUP${c > 1 ? 'S' : ''}` : '—'}</span></span><span class="name">${esc(s.name)}</span></button>`;
+      return `<button class="site-btn${s.id === site.id ? ' on' : ''}" data-site="${s.id}"><span class="meta"><span>${esc(s.floor)}</span><span>${c ? `${c} PLAN${c > 1 ? 'S' : ''}` : '—'}</span></span><span class="name">${esc(s.name)}</span></button>`;
     }).join('');
 
     document.querySelectorAll('#side button').forEach(b => b.classList.toggle('on', b.dataset.side === state.side));
@@ -79,13 +83,19 @@
       ? ops.map(({ o, c }) => `<button class="op-btn${c ? ' has' : ''}${o.id === op.id ? ' on' : ''}" data-op="${o.id}"><span class="name">${esc(o.name)}</span><span class="count">${c || ''}</span></button>`).join('')
       : `<div class="note">No ${state.side === 'atk' ? 'attacker' : 'defender'} lineups for this site yet.</div>`;
 
-    const shots = op.side === state.side ? images(map.id, site.id, op.id) : [];
+    const ps = op.side === state.side ? plans(map.id, site.id, op.id) : [];
+    const shots = ps.flat();
     const g = $('gallery');
-    if (!shots.length) {
+    if (!ps.length) {
       g.innerHTML = `<div class="empty"><h2>No lineups yet</h2><p>Nothing for ${esc(op.name)} on ${esc(site.name)}. To add some, put screenshots in <code>images/${map.id}/${site.id}/</code> and list them in <code>data.js</code>.</p></div>`;
     } else {
-      g.innerHTML = `<div class="gallery-head">${esc(op.name.toUpperCase())} · ${esc(site.name.toUpperCase())} · ${shots.length} LINEUP${shots.length > 1 ? 'S' : ''}</div>
-        <div class="grid">${shots.map((src, i) => `<button class="shot" data-shot="${i}"><img src="${esc(src)}" alt="${esc(`${op.name} lineup ${i + 1}, ${site.name}, ${map.name}`)}" loading="lazy"><span class="num">${pad(i + 1)}</span></button>`).join('')}</div>`;
+      let k = 0;
+      lb.meta = [];
+      g.innerHTML = `<div class="gallery-head">${esc(op.name.toUpperCase())} · ${esc(site.name.toUpperCase())} · ${ps.length} PLAN${ps.length > 1 ? 'S' : ''}</div>` +
+        ps.map((p, pi) => `<div class="plan">
+          <div class="plan-head"><span class="plan-tag">PLAN ${pad(pi + 1)}</span><span class="plan-line"></span><span class="plan-count">${p.length} SHOT${p.length > 1 ? 'S' : ''}</span></div>
+          <div class="grid">${p.map((src, i) => { const idx = k++; lb.meta.push(`PLAN ${pad(pi + 1)} · ${pad(i + 1)} / ${pad(p.length)}`); return `<button class="shot" data-shot="${idx}"><img src="${esc(src)}" alt="${esc(`${op.name} plan ${pi + 1} shot ${i + 1}, ${site.name}, ${map.name}`)}" loading="lazy"><span class="num">${pi + 1}.${i + 1}</span></button>`; }).join('')}</div>
+        </div>`).join('');
       g.querySelectorAll('.shot img').forEach(img => img.addEventListener('error', () => {
         const b = img.parentElement; b.classList.add('missing'); b.disabled = true;
         img.remove(); b.insertAdjacentHTML('beforeend', `<span class="miss">missing file<br>${esc(img.getAttribute('src'))}</span>`);
@@ -117,7 +127,7 @@
   // Lightbox
   const lb = { el: $('lightbox'), list: [], i: 0 };
   const lbImg = lb.el.querySelector('img');
-  const show = i => { lb.i = (i + lb.list.length) % lb.list.length; lbImg.src = lb.list[lb.i]; lb.el.querySelector('.lb-count').textContent = `${pad(lb.i + 1)} / ${pad(lb.list.length)}`; };
+  const show = i => { lb.i = (i + lb.list.length) % lb.list.length; lbImg.src = lb.list[lb.i]; lb.el.querySelector('.lb-count').textContent = lb.meta?.[lb.i] || `${pad(lb.i + 1)} / ${pad(lb.list.length)}`; };
   const open = i => { lb.el.hidden = false; document.body.style.overflow = 'hidden'; show(i); };
   const close = () => { lb.el.hidden = true; document.body.style.overflow = ''; };
   $('gallery').addEventListener('click', e => { const b = e.target.closest('.shot:not(.missing)'); if (b) open(+b.dataset.shot); });

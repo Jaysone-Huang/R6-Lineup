@@ -1,23 +1,23 @@
 // ============================================================
 //  LINEUPS — the only part you normally edit.
 //
-//  Format:  map-id: { site-id: { operator-id: N } }
-//  N = number of screenshots. Files are loaded from:
-//    images/<map-id>/<site-id>/<operator-id>-1.jpg ... -N.jpg
+//  Format:  map-id: { site-id: { operator-id: [plan1, plan2, ...] } }
+//  Each plan = number of screenshots in that plan.
+//  Files are loaded from:
+//    images/<map-id>/<site-id>/<operator-id>-<plan>.<shot>.png
 //
-//  You can also list exact filenames instead of a number:
-//    denari: ['main-stairs.png', 'office.png']
-//  -> images/chalet/2f-master-bedroom/main-stairs.png ...
+//  Example:  denari: [2, 3]
+//    Plan 1 -> denari-1.1.png, denari-1.2.png
+//    Plan 2 -> denari-2.1.png, denari-2.2.png, denari-2.3.png
 //
-//  Not sure of an id? Open the site, select it, and look at the URL
-//  (#map/site/operator) or the folder path shown on the page.
+//  Custom filenames instead of numbers:
+//    denari: [['stairs.png', 'office.png'], ['hall.jpg']]
 // ============================================================
 window.LINEUPS = {
   chalet: {
-    '2f-master-bedroom': { denari: 2 },
-    '1f-bar': { denari: 1 },
-    '1f-dining-room': { denari: 1 },
-    'b-wine-cellar': { denari: 1 },
+    '2f-master-bedroom': { denari: [2, 3], kaid: [2], melusi: [4] },
+    'b-wine-cellar': { azami: [6] },
+    'b-wine-cellar': { azami: [6] },
   },
 };
 

@@ -87,7 +87,13 @@ h1 { margin: 0; font: 700 clamp(40px, 6vw, 76px)/.9 var(--cond); text-transform:
 
 .rule { height: 1px; background: var(--line); }
 
-.gallery-head { font: 500 10px/1 var(--mono); color: var(--muted); letter-spacing: .1em; margin-bottom: 12px; }
+.gallery-head { font: 500 10px/1 var(--mono); color: var(--muted); letter-spacing: .1em; margin-bottom: 18px; }
+.plan { display: flex; flex-direction: column; gap: 12px; }
+.plan + .plan { margin-top: 36px; }
+.plan-head { display: flex; align-items: center; gap: 12px; }
+.plan-tag { padding: 6px 10px; background: var(--red); color: #fff; font: 700 15px/1 var(--cond); letter-spacing: .12em; border-radius: 2px; }
+.plan-line { flex: 1; height: 1px; background: var(--line-2); }
+.plan-count { font: 500 10px/1 var(--mono); color: var(--muted); letter-spacing: .1em; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 14px; }
 .shot { position: relative; aspect-ratio: 16 / 9; background: var(--panel); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; padding: 0; display: block; width: 100%; }
 .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
