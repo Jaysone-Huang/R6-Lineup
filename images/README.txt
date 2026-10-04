@@ -1,0 +1,1 @@
+Put screenshots here: images/<map>/<site>/<operator>-1.jpg
