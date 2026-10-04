@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lineup Index — Siege gadget placements</title>
+<meta name="description" content="Gadget lineups for every map, site and operator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#">
+    <span class="mark"></span>
+    <span class="brand-name">Lineup Index</span>
+    <span class="brand-sub">// SIEGE GADGET PLACEMENTS</span>
+  </a>
+  <span class="stats" id="stats"></span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="label"><span class="n">01</span>MAP</div>
+    <input id="mapSearch" class="search" type="search" placeholder="Search maps" autocomplete="off">
+    <nav id="maps" class="maps"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="head">
+      <div>
+        <div class="crumb" id="crumb"></div>
+        <h1 id="mapName"></h1>
+      </div>
+      <button class="ghost" id="copyLink">COPY LINK</button>
+    </div>
+
+    <section class="block">
+      <div class="label"><span class="n">02</span>SITE</div>
+      <div id="sites" class="sites"></div>
+    </section>
+
+    <section class="block">
+      <div class="row">
+        <div class="label"><span class="n">03</span>OPERATOR</div>
+        <div class="controls">
+          <label class="check"><input type="checkbox" id="onlyWith" checked><span class="box"></span>WITH LINEUPS ONLY</label>
+          <div class="seg" id="side">
+            <button data-side="atk">Attack</button>
+            <button data-side="def">Defense</button>
+          </div>
+        </div>
+      </div>
+      <div id="ops" class="ops"></div>
+    </section>
+
+    <div class="rule"></div>
+
+    <section id="gallery"></section>
+  </main>
+</div>
+
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lb-close" aria-label="Close">×</button>
+  <button class="lb-nav lb-prev" aria-label="Previous">‹</button>
+  <img alt="">
+  <button class="lb-nav lb-next" aria-label="Next">›</button>
+  <div class="lb-count"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
