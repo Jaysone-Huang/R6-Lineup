@@ -19,7 +19,7 @@ window.LINEUPS = {
     'b-wine-cellar': { azami: [6] },
   },
   border: {
-    '2f-armory-lockers': { mute: [4] },
+    '2f-armory-lockers': { mute: [4], denari: [5] },
     '1f-bathroom': { denari: [3] },
   },
   clubhouse: {
