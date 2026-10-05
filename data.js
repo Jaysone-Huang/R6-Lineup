@@ -20,6 +20,7 @@ window.LINEUPS = {
   },
   border: {
     '2f-armory-lockers': { mute: [4] },
+    '1f-bathroom': { denari: [3] },
   },
   clubhouse: {
     '2f-gym': { denari: [3] },
