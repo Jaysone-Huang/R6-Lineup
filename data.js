@@ -21,6 +21,9 @@ window.LINEUPS = {
   border: {
     '2f-armory-lockers': { mute: [4] },
   },
+  clubhouse: {
+    '2f-gym': { denari: [3] },
+  },
   kanal: {
     '2f-server-room': { denari: [4] },
     'b-kayaks': { denari: [3] },
