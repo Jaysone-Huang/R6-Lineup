@@ -4,20 +4,22 @@
 //  Format:  map-id: { site-id: { operator-id: [plan1, plan2, ...] } }
 //  Each plan = number of screenshots in that plan.
 //  Files are loaded from:
-//    images/<map-id>/<site-id>/<operator-id>-<plan>.<shot>.png
+//    images/<map-id>/<site-id>/<operator-id>-<plan>.<shot>.webp
 //
 //  Example:  denari: [2, 3]
-//    Plan 1 -> denari-1.1.png, denari-1.2.png
-//    Plan 2 -> denari-2.1.png, denari-2.2.png, denari-2.3.png
+//    Plan 1 -> denari-1.1.webp, denari-1.2.webp
+//    Plan 2 -> denari-2.1.webp, denari-2.2.webp, denari-2.3.webp
 //
 //  Custom filenames instead of numbers:
-//    denari: [['stairs.png', 'office.png'], ['hall.jpg']]
+//    denari: [['stairs.webp', 'office.webp'], ['hall.jpg']]
 // ============================================================
 window.LINEUPS = {
   chalet: {
     '2f-master-bedroom': { denari: [2, 3], kaid: [2], melusi: [4] },
     'b-wine-cellar': { azami: [6] },
-    'b-wine-cellar': { azami: [6] },
+  },
+  kanal: {
+    '2f-server-room': { denari: [4] },
   },
 };
 
