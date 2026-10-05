@@ -17,7 +17,9 @@ window.LINEUPS = {
   chalet: {
     '2f-master-bedroom': { denari: [2, 3], kaid: [2], melusi: [4] },
     'b-wine-cellar': { azami: [6] },
-    'b-wine-cellar': { azami: [6] },
+  },
+  kanal: {
+    '2f-server-room': { denari: [['denari-1.1.webp', 'denari-1.2.webp', 'denari-1.3.webp', 'denari-1.4.webp']] },
   },
 };
 
