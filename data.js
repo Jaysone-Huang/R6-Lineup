@@ -23,6 +23,7 @@ window.LINEUPS = {
   },
   clubhouse: {
     '2f-gym': { denari: [3] },
+    '2f-cctv': { thorn: [4] },
   },
   kanal: {
     '2f-server-room': { denari: [4] },
