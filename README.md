@@ -49,12 +49,12 @@ https://<user>.github.io/<repo>/#chalet/2f-master-bedroom/denari
 A site can have **multiple plans** per operator. Each plan is a group of screenshots, shown under its own **PLAN 01 / PLAN 02** divider.
 
 ### Step 1 — Save screenshots
-Name them `<operator>-<plan>.<shot>.png` inside the site folder:
+Name them `<operator>-<plan>.<shot>.webp` inside the site folder:
 
 ```
-images/chalet/2f-master-bedroom/denari-1.1.png   ← plan 1, shot 1
-images/chalet/2f-master-bedroom/denari-1.2.png   ← plan 1, shot 2
-images/chalet/2f-master-bedroom/denari-2.1.png   ← plan 2, shot 1
+images/chalet/2f-master-bedroom/denari-1.1.webp   ← plan 1, shot 1
+images/chalet/2f-master-bedroom/denari-1.2.webp   ← plan 1, shot 2
+images/chalet/2f-master-bedroom/denari-2.1.webp   ← plan 2, shot 1
 ```
 
 ### Step 2 — Register them in `data.js`
@@ -71,13 +71,13 @@ window.LINEUPS = {
 
 ### Option — custom filenames / formats
 ```js
-denari: [['stairs.png', 'office.png'], ['hall.jpg']]
+denari: [['stairs.webp', 'office.webp'], ['hall.jpg']]
 ```
 
 ### If an image doesn't show
 The tile shows **"missing file"** plus the path it expected. Check:
 - Folder and filename match exactly. **GitHub Pages is case-sensitive.**
-- Default extension is `.png`.
+- Default extension is `.webp`.
 - The counts in `data.js` match the files.
 
 ---
@@ -146,7 +146,7 @@ The layout is responsive. Below 760px wide, the map sidebar becomes a horizontal
 To update: commit new images and the edited `data.js`. Pages redeploys automatically.
 
 **Tips**
-- Large PNGs (2–5 MB) load slowly. Consider resizing to 1920×1080 before uploading.
+- Use WebP screenshots about 2000 px wide (around 100 to 300 KB each). To convert a PNG: `convert shot.png -resize 2000x -quality 82 shot.webp` (ImageMagick).
 - GitHub repos should stay under ~1 GB. That's roughly a few thousand screenshots at the size above.
 
 ---
@@ -166,7 +166,7 @@ To update: commit new images and the edited `data.js`. Pages redeploys automatic
 
 ## 9. Quick checklist for a new lineup
 
-- [ ] Screenshots saved as `images/<map>/<site>/<operator>-<plan>.<shot>.png`
+- [ ] Screenshots saved as `images/<map>/<site>/<operator>-<plan>.<shot>.webp`
 - [ ] Plan counts added in `data.js` → `LINEUPS`
 - [ ] Opened locally to confirm it shows
 - [ ] Committed and pushed to GitHub

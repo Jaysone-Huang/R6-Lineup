@@ -1,1 +1,1 @@
-Put screenshots here: images/<map>/<site>/<operator>-1.jpg
+Put screenshots here: images/<map>/<site>/<operator>-<plan>.<shot>.webp

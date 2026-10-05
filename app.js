@@ -19,7 +19,7 @@
     if (!Array.isArray(v)) v = [v];
     if (v.length && typeof v[0] === 'string') v = [v];
     const dir = `images/${map}/${site}/`;
-    return v.map((p, pi) => Array.isArray(p) ? p.map(f => dir + f) : Array.from({ length: p }, (_, i) => `${dir}${op}-${pi + 1}.${i + 1}.png`)).filter(p => p.length);
+    return v.map((p, pi) => Array.isArray(p) ? p.map(f => dir + f) : Array.from({ length: p }, (_, i) => `${dir}${op}-${pi + 1}.${i + 1}.webp`)).filter(p => p.length);
   };
   const images = (map, site, op) => plans(map, site, op);
   const countMap = map => Object.keys(LINEUPS[map] || {}).reduce((a, s) => a + countSite(map, s), 0);
