@@ -18,6 +18,9 @@ window.LINEUPS = {
     '2f-master-bedroom': { denari: [2, 3], kaid: [2], melusi: [4] },
     'b-wine-cellar': { azami: [6] },
   },
+  border: {
+    '2f-armory-lockers': { mute: [4] },
+  },
   kanal: {
     '2f-server-room': { denari: [4] },
     'b-kayaks': { denari: [3] },
