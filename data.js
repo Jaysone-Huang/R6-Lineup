@@ -20,6 +20,7 @@ window.LINEUPS = {
   },
   kanal: {
     '2f-server-room': { denari: [4] },
+    'b-kayaks': { denari: [3] },
   },
 };
 
